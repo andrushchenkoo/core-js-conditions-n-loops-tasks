@@ -150,10 +150,12 @@ function convertNumberToString(numberStr) {
   };
   let result = '';
   for (let i = 0; i < numberStr.length; i += 1) {
-    if (i === 0) {
-      result += dictionary[numberStr[i]];
-    } else {
-      result += ` ${dictionary[numberStr[i]]}`;
+    switch (i) {
+      case 0:
+        result += dictionary[numberStr[i]];
+        break;
+      default:
+        result += ` ${dictionary[numberStr[i]]}`;
     }
   }
   return result;
@@ -292,7 +294,9 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {}
+function getSpiralMatrix(/* size */) {
+  throw new Error('Not implemented');
+}
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
@@ -348,8 +352,54 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let evenString;
+  let oddString;
+  let result = str;
+  let fullIterationsСycle = 0;
+
+  for (let i = 0; i < iterations; i += 1) {
+    evenString = '';
+    oddString = '';
+
+    for (let j = 0; j < result.length; j += 1) {
+      const character = result[j];
+
+      if (j % 2 === 0) {
+        evenString += character;
+      }
+      if (j % 2 !== 0) {
+        oddString += character;
+      }
+    }
+    result = evenString + oddString;
+
+    if (result === str) {
+      fullIterationsСycle = i + 1;
+      break;
+    }
+  }
+  const significantIterations = iterations % fullIterationsСycle;
+
+  if (significantIterations) {
+    for (let i = 0; i < significantIterations; i += 1) {
+      evenString = '';
+      oddString = '';
+
+      for (let j = 0; j < result.length; j += 1) {
+        const character = result[j];
+
+        if (j % 2 === 0) {
+          evenString += character;
+        }
+        if (j % 2 !== 0) {
+          oddString += character;
+        }
+      }
+      result = evenString + oddString;
+    }
+  }
+  return result;
 }
 
 /**
